@@ -12,6 +12,11 @@ jobs:
       DEPLOYMENT_ENV: production
 
     steps:
+      - name: Set up Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -28,4 +33,3 @@ jobs:
         run: |
           echo "Sending notifications..."
           # Notification steps go here
-

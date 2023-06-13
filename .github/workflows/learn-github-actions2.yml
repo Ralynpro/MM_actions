@@ -1,13 +1,32 @@
-name: MM-github-actions2
-run-name: ${{ github.actor }} is teaching GitHub Actions to MM
-on: [push]
+name: Environment Example
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DEPLOYMENT_ENV: production
+
 jobs:
-  check-bats-version:
+  deploy:
     runs-on: ubuntu-latest
+    environment: ${{ env.DEPLOYMENT_ENV }}
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and test
+        run: |
+          echo "Building and testing the code..."
+
+      - name: Deploy to server
+        run: |
+          echo "Deploying to ${{ env.DEPLOYMENT_ENV }} environment..."
+          # Deployment steps go here
+
+      - name: Send notifications
+        run: |
+          echo "Sending notifications..."
+          # Notification steps go here
